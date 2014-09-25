@@ -1,7 +1,23 @@
+import processing.core.*; 
+import processing.data.*; 
+import processing.event.*; 
+import processing.opengl.*; 
+
+import java.util.HashMap; 
+import java.util.ArrayList; 
+import java.io.File; 
+import java.io.BufferedReader; 
+import java.io.PrintWriter; 
+import java.io.InputStream; 
+import java.io.OutputStream; 
+import java.io.IOException; 
+
+public class SnowflakeCatcher extends PApplet {
+
 SnowFlake [] snowstorm;
 int oldMouseX;
 int oldMouseY;
-void setup()
+public void setup()
 {
   //your code here
   frameRate(15);
@@ -13,7 +29,7 @@ void setup()
  		snowstorm[i] = new SnowFlake();
  	}
 }
-void draw()
+public void draw()
 {
   //your code here
 	for (int i=0; i<snowstorm.length; i++)
@@ -25,7 +41,7 @@ void draw()
  		snowstorm[i].move();
  	}
 }
-void mouseDragged()
+public void mouseDragged()
 {
   //your code here
   	if (mouseButton == LEFT)
@@ -61,7 +77,7 @@ class SnowFlake
     white = true;
     isMoving = true;
   }
-  void show()
+  public void show()
   {
     //your code here
     if (isMoving == true)
@@ -103,7 +119,7 @@ class SnowFlake
     stroke(0);
     ellipse(x,y,snowflakeWidth,snowflakeLength);
   }
-  void lookDown()
+  public void lookDown()
   {
     //your code here
     if(y < 595 && get(x,y+8) == color(255,0,0) || get(x,y+8) == color(255,255,255))
@@ -115,14 +131,14 @@ class SnowFlake
     	isMoving = true;
     }
   }
-  void erase()
+  public void erase()
   {
     //your code here
     stroke(0);
     fill(0);
     ellipse(x, y, 7, 7);
   }
-  void move()
+  public void move()
   {
     //your code here
     if (isMoving == true)
@@ -130,13 +146,22 @@ class SnowFlake
 		y = y + 1;
     }
   }
-  void wrap()
+  public void wrap()
   {
     //your code here
     if (y > 595) 
     {
     	y = (int)(Math.random()*20)-20;
     	x = (int)(Math.random()*900)+1;
+    }
+  }
+}
+  static public void main(String[] passedArgs) {
+    String[] appletArgs = new String[] { "SnowflakeCatcher" };
+    if (passedArgs != null) {
+      PApplet.main(concat(appletArgs, passedArgs));
+    } else {
+      PApplet.main(appletArgs);
     }
   }
 }
